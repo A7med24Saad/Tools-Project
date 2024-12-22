@@ -1,0 +1,53 @@
+#version: '3.1'
+
+services:
+  backend:
+    build:
+      context: D:/Tools/test/backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" # Expose the backend on port 8000
+    networks:
+      - app-network
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=A7med2452003
+      - DB_NAME=package_tracking
+
+  frontend:
+    build:
+      context: D:/Tools/test/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:8080" # Maps local port 4200 to container port 8080 (served by Nginx)
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+  db:
+    image: mysql:8.0
+    restart: always
+    #container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: A7med2452003
+      MYSQL_DATABASE: package_tracking
+      #MYSQL_USER: root
+    ports:
+      - "3307:3306" # Expose MySQL on port 3306
+    networks:
+      - app-network
+    volumes:
+      # - db_data:/var/lib/mysql
+      # - ./db-init:/docker-entrypoint-initdb.d
+      - simple:/var/lip/mysql
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+ simple: {}
