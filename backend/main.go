@@ -435,7 +435,7 @@ func UpdateOrderStatus(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Update the status in the assignedorders table if there is an assigned record
-	updateAssignedQuery := `UPDATE assignedorders SET status = ? WHERE order_id = ?`
+	updateAssignedQuery := `UPDATE Assignedorders SET status = ? WHERE order_id = ?`
 	_, err = db.Exec(updateAssignedQuery, updatedStatus.Status, orderID)
 	if err != nil {
 		http.Error(w, "Failed to update order status in assignedorders table: "+err.Error(), http.StatusInternalServerError)
@@ -453,7 +453,7 @@ func DeleteOrder(w http.ResponseWriter, r *http.Request) {
 	orderID := r.URL.Query().Get("order_id")
 
 	// First, delete the record from the assignedorders table where the order_id matches
-	deleteAssignedQuery := `DELETE FROM assignedorders WHERE order_id = ?`
+	deleteAssignedQuery := `DELETE FROM Assignedorders WHERE order_id = ?`
 	_, err := db.Exec(deleteAssignedQuery, orderID)
 	if err != nil {
 		http.Error(w, "Failed to delete from assignedorders: "+err.Error(), http.StatusInternalServerError)
@@ -494,7 +494,7 @@ func AssignOrderForCourier(w http.ResponseWriter, r *http.Request) {
 
 	// Check if the order already exists in the assignedorders table
 	var exists bool
-	err = db.QueryRow("SELECT EXISTS(SELECT 1 FROM assignedorders WHERE order_id = ?)", orderID).Scan(&exists)
+	err = db.QueryRow("SELECT EXISTS(SELECT 1 FROM Assignedorders WHERE order_id = ?)", orderID).Scan(&exists)
 	if err != nil {
 		http.Error(w, "Failed to check assignedorders table: "+err.Error(), http.StatusInternalServerError)
 		return
@@ -502,14 +502,14 @@ func AssignOrderForCourier(w http.ResponseWriter, r *http.Request) {
 
 	if exists {
 		// Update the courier_id in assignedorders if the order already exists
-		_, err = db.Exec("UPDATE assignedorders SET courier_id = ?, status = ?, assigned_at = NOW() WHERE order_id = ?", courierID, orderStatus, orderID)
+		_, err = db.Exec("UPDATE Assignedorders SET courier_id = ?, status = ?, assigned_at = NOW() WHERE order_id = ?", courierID, orderStatus, orderID)
 		if err != nil {
 			http.Error(w, "Failed to update assignedorders: "+err.Error(), http.StatusInternalServerError)
 			return
 		}
 	} else {
 		// Insert a new record in assignedorders if the order does not already exist
-		_, err = db.Exec(`INSERT INTO assignedorders (order_id, courier_id, assigned_at, status) 
+		_, err = db.Exec(`INSERT INTO Assignedorders (order_id, courier_id, assigned_at, status) 
 		                  VALUES (?, ?, NOW(), ?)`, orderID, courierID, orderStatus)
 		if err != nil {
 			http.Error(w, "Failed to insert into assignedorders: "+err.Error(), http.StatusInternalServerError)
@@ -614,14 +614,14 @@ func DeclineOrder(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Delete the record from the assignedorders table
-	_, err := db.Exec("DELETE FROM assignedorders WHERE order_id = ? AND courier_id = ?", orderID, courierID)
+	_, err := db.Exec("DELETE FROM Assignedorders WHERE order_id = ? AND courier_id = ?", orderID, courierID)
 	if err != nil {
 		http.Error(w, "Failed to delete from assignedorders: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	// Update the orders table to set courier_id to NULL for the given order_id
-	_, err = db.Exec("UPDATE orders SET courier_id = NULL WHERE order_id = ?", orderID)
+	_, err = db.Exec("UPDATE Orders SET courier_id = NULL WHERE order_id = ?", orderID)
 	if err != nil {
 		http.Error(w, "Failed to update orders: "+err.Error(), http.StatusInternalServerError)
 		return

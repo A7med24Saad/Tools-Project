@@ -17,7 +17,7 @@ COPY . .
 RUN go build -o bin main.go
 
 # Set environment variables for the database
-ENV DB_HOST=host.docker.internal:3306 \
+ENV DB_HOST=db \
     DB_USER=root \
     DB_PASSWORD=A7med2452003 \
     DB_NAME=package_tracking
