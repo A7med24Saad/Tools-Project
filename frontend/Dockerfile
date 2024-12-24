@@ -1,23 +1,4 @@
-# # Build stage
-# FROM node:alpine AS build-stage
 
-# WORKDIR /app
-# COPY . .
-
-# # Install dependencies
-# RUN npm install
-
-# # Install Angular CLI globally
-# RUN npm install -g @angular/cli
-
-# # Build the Angular app in production mode
-# RUN ng build --configuration=production
-
-# # Production stage
-# FROM nginx:alpine AS production-stage
-# COPY --from=build-stage /app/dist/project /usr/share/nginx/html
-# EXPOSE 80
-# CMD ["nginx", "-g", "daemon off;"]
 
 # Stage 1: Build the Angular application
 FROM node:20 as build
