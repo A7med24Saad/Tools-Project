@@ -11,11 +11,10 @@ import { AuthService } from '../../services/auth.service';
 import { MessageService } from 'primeng/api'; 
 
 @Component({
-  selector: 'app-courierhomepage',
-  standalone: true,
-  imports: [FormsModule,CommonModule,CardModule,ButtonModule],
-  templateUrl: './courierhomepage.component.html',
-  styleUrl: './courierhomepage.component.css'
+    selector: 'app-courierhomepage',
+    imports: [FormsModule, CommonModule, CardModule, ButtonModule],
+    templateUrl: './courierhomepage.component.html',
+    styleUrl: './courierhomepage.component.css'
 })
 export class CourierhomepageComponent {
   message: string = '';

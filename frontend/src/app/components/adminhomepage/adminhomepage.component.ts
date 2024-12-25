@@ -9,11 +9,10 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 //import { BrowserModule } from '@angular/platform-browser';
 @Component({
-  selector: 'app-adminhomepage',
-  standalone: true,
-  imports: [CommonModule,FormsModule,CardModule,ButtonModule],
-  templateUrl: './adminhomepage.component.html',
-  styleUrl: './adminhomepage.component.css'
+    selector: 'app-adminhomepage',
+    imports: [CommonModule, FormsModule, CardModule, ButtonModule],
+    templateUrl: './adminhomepage.component.html',
+    styleUrl: './adminhomepage.component.css'
 })
 export class AdminhomepageComponent  {
   

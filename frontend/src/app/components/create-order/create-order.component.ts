@@ -9,11 +9,10 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 
 @Component({
-  selector: 'app-create-order',
-  templateUrl: './create-order.component.html',
-  styleUrls: ['./create-order.component.css'],
-  standalone: true,
-  imports: [FormsModule,ButtonModule,CardModule]
+    selector: 'app-create-order',
+    templateUrl: './create-order.component.html',
+    styleUrls: ['./create-order.component.css'],
+    imports: [FormsModule, ButtonModule, CardModule]
 })
 export class CreateOrderComponent {
   orderData: createOrder = {

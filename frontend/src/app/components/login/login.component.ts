@@ -9,11 +9,10 @@ import { AuthService } from '../../services/auth.service';
 import { MessageService } from 'primeng/api'; 
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [CardModule, InputTextModule, FormsModule, PasswordModule, ButtonModule],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    imports: [CardModule, InputTextModule, FormsModule, PasswordModule, ButtonModule],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
 navigateToRegister() {

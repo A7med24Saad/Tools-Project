@@ -8,11 +8,10 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'app-ownerhomepage',
-  standalone: true,
-  imports: [CommonModule,ButtonModule,CardModule],
-  templateUrl: './ownerhomepage.component.html',
-  styleUrls: ['./ownerhomepage.component.css']
+    selector: 'app-ownerhomepage',
+    imports: [CommonModule, ButtonModule, CardModule],
+    templateUrl: './ownerhomepage.component.html',
+    styleUrls: ['./ownerhomepage.component.css']
 })
 export class OwnerhomepageComponent{
   userOrders: order[] = [];
