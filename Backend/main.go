@@ -19,7 +19,7 @@ var err error
 
 func main() {
 	// Database connection
-	db, err = sql.Open("mysql", "root:A7med2452003@tcp(db:3306)/package_tracking")
+	db, err = sql.Open("mysql", "root:A7med2452003@tcp(tools-project-db-service:3306)/package_tracking")
 	if err != nil {
 		log.Fatal(err)
 	}
